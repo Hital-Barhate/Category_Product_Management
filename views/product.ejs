@@ -1,0 +1,31 @@
+<%- include('partials/header') %>
+<h2>Product Master</h2>
+<form method="POST" action="/product/add">
+  <input type="text" name="name" placeholder="Product Name" required />
+  <select name="category_id" required>
+    <% categories.forEach(cat => { %>
+      <option value="<%= cat.id %>"><%= cat.name %></option>
+    <% }) %>
+  </select>
+  <button type="submit">Add</button>
+</form>
+
+<table>
+  <tr><th>Product ID</th><th>Name</th><th>Category ID</th><th>Category Name</th><th>Actions</th></tr>
+  <% products.forEach(prod => { %>
+    <tr>
+      <td><%= prod.productId %></td>
+      <td><%= prod.productName %></td>
+      <td><%= prod.categoryId %></td>
+      <td><%= prod.categoryName %></td>
+      <td><a href="/product/delete/<%= prod.productId %>">Delete</a></td>
+    </tr>
+  <% }) %>
+</table>
+
+<div>
+  <% for(let i = 1; i <= totalPages; i++) { %>
+    <a href="/product?page=<%= i %>"><%= i %></a>
+  <% } %>
+</div>
+<%- include('partials/footer') %>

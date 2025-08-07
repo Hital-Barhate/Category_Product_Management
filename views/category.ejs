@@ -1,0 +1,42 @@
+<%- include('partials/header') %>
+
+<h2 class="mb-4">Category Master</h2>
+
+<form method="POST" action="/category/add" class="row g-3 mb-4">
+  <div class="col-md-6">
+    <input type="text" name="category_name" class="form-control" placeholder="Category Name" required />
+  </div>
+  <div class="col-md-2">
+    <button type="submit" class="btn btn-primary">Add</button>
+  </div>
+</form>
+
+<table class="table table-bordered table-striped">
+  <thead class="table-dark">
+    <tr><th>ID</th><th>Name</th><th>Actions</th></tr>
+  </thead>
+  <tbody>
+  <% categories.forEach(cat => { %>
+    <tr>
+      <td><%= cat.category_id %></td>
+      <td><%= cat.category_name %></td>
+      <td>
+        <a href="/category/update/<%= cat.category_id %>" class="btn btn-warning btn-sm me-2">Update</a>
+        <a href="/category/delete/<%= cat.category_id %>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</a>
+      </td>
+    </tr>
+  <% }) %>
+  </tbody>
+</table>
+<nav>
+  <ul class="pagination justify-content-center">
+    <% for(let i = 1; i <= totalPages; i++) { %>
+      <li class="page-item <%= i === currentPage ? 'active' : '' %>">
+        <a class="page-link" href="/category?page=<%= i %>"><%= i %></a>
+      </li>
+    <% } %>
+  </ul>
+</nav>
+
+
+<%- include('partials/footer') %>
